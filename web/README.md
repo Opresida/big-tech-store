@@ -23,6 +23,32 @@ npx eslint src               # lint
 npx tsc --noEmit             # typecheck
 ```
 
+## Identidade e compartilhamento
+
+Site em produção: **https://bigtechstor.netlify.app**
+
+| Arquivo | Para que serve |
+|---|---|
+| `src/app/icon.svg` | Favicon vetorial — o símbolo de chevrons do brandbook, nítido em qualquer tamanho |
+| `src/app/favicon.ico` | Fallback para navegador sem suporte a SVG (16/32/48/64px) |
+| `src/app/apple-icon.png` | Ícone de 180px para atalho no iOS |
+| `src/app/opengraph-image.png` | Card 1200×630 da prévia de link |
+| `src/app/twitter-image.png` | Mesma arte, para o X |
+
+As imagens foram renderizadas **dentro da própria aplicação**, para que a
+tipografia saia idêntica à do site — Archivo Black de verdade, não uma fonte
+parecida. O script de geração não faz parte do build: os PNGs estão versionados.
+
+Metadata Open Graph completo em `src/app/layout.tsx`, com título e preço por
+produto em `src/app/(loja)/produtos/[slug]/layout.tsx` (é o link que as pessoas
+compartilham). `robots.ts` e `sitemap.ts` completam o conjunto: painel, carrinho
+e checkout ficam fora do índice.
+
+> **Cuidado ao mexer:** declarar `openGraph` num layout aninhado **substitui** o
+> do layout raiz — e leva junto a imagem que vinha da convenção de arquivo. Por
+> isso o layout do produto repete `images` explicitamente. Sem isso, a prévia do
+> link do produto sai sem imagem nenhuma.
+
 ## Deploy (Netlify)
 
 A configuração está em `netlify.toml`, **na raiz do repositório** — não aqui

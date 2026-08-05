@@ -24,13 +24,53 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const SITE = "https://bigtechstor.netlify.app";
+
+const TITULO = "BIG TECH STORE — O melhor preço do Brasil";
+const DESCRICAO =
+  "Consoles, celulares, notebooks, áudio e acessórios com nota fiscal, garantia e rastreio. 12x sem juros e 5% de desconto no Pix. Achou mais barato? A gente cobre.";
+
 export const metadata: Metadata = {
+  // Base para resolver as URLs relativas de OG, canonical e ícones.
+  metadataBase: new URL(SITE),
   title: {
-    default: "BIG TECH STORE — O melhor preço do Brasil",
+    default: TITULO,
     template: "%s · BIG TECH STORE",
   },
-  description:
-    "Consoles, celulares, notebooks, áudio e acessórios com nota fiscal, garantia e rastreio. Achou mais barato? A gente cobre.",
+  description: DESCRICAO,
+  applicationName: "BIG TECH STORE",
+  keywords: [
+    "PS5",
+    "PlayStation 5",
+    "Xbox",
+    "celular",
+    "iPhone",
+    "notebook gamer",
+    "caixa de som JBL",
+    "controle DualSense",
+    "loja de eletrônicos",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: SITE,
+    siteName: "BIG TECH STORE",
+    title: TITULO,
+    description: DESCRICAO,
+    // A imagem vem de app/opengraph-image.png pela convenção de arquivo do
+    // Next — ele injeta URL, dimensões e tipo sozinho.
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITULO,
+    description: DESCRICAO,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
 };
 
 export const viewport: Viewport = {

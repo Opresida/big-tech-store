@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BIG TECH STORE">
+  <!-- Símbolo da marca — Brandbook 02: dois chevrons ascendentes,
+       laranja na frente (ação), branco atrás (clareza). -->
+  <rect width="512" height="512" rx="128" fill="#0B37D6"/>
+  <path fill="#FF6A00" d="M119 116h66l54 140-54 140h-66l54-140z"/>
+  <path fill="#FFFFFF" d="M273 116h66l54 140-54 140h-66l54-140z"/>
+</svg>

@@ -37,6 +37,9 @@ frente.
 - [x] Responsivo, verificado em 1280px e 390px
 - [x] Componentes de visualização próprios, responsivos, com tabela acessível
 - [x] `netlify.toml` na raiz, com build reproduzido a partir do lockfile
+- [x] Favicon oficial (SVG + ICO + apple-icon) e card Open Graph da marca
+- [x] Metadata OG/Twitter, com título e preço por produto
+- [x] `robots.txt` e `sitemap.xml` (27 URLs)
 
 ---
 
@@ -112,8 +115,12 @@ Ordem sugerida.
       aparecer no Analytics. Hoje foi verificado à mão.
 - [ ] Auditoria de acessibilidade com axe + navegação só por teclado
 - [ ] Lighthouse: medir LCP e CLS com fontes reais
-- [ ] SEO: `generateMetadata` por produto, JSON-LD de `Product` e `Offer`,
-      sitemap
+- [ ] JSON-LD de `Product` e `Offer` na página do produto (rich snippet com
+      preço e disponibilidade no Google)
+- [ ] **Card OG por produto** — hoje todos compartilham a mesma arte da marca.
+      O ideal é gerar com `opengraph-image.tsx`/`ImageResponse` mostrando foto,
+      nome e preço. Depende das fotos reais e de fonte em TTF/WOFF (o satori
+      não lê WOFF2, que é o formato que o `next/font` baixa)
 - [ ] **CSP** — ficou de fora do `netlify.toml` de propósito: o Next.js injeta
       script inline e uma política no chute quebraria a hidratação. Fazer com
       nonce no middleware, junto com o back-end
