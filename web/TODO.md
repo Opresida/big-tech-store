@@ -36,7 +36,7 @@ frente.
 - [x] Design system do brandbook em tokens
 - [x] Responsivo — loja e painel verificados em 360px, 390px, 414px, 768px e
       1280px, tela por tela, medindo overflow real no navegador
-- [x] Loader com a marca (anel laranja + símbolo), 4 segundos exatos, e splash
+- [x] Loader com a marca (anel laranja + símbolo), 3 segundos exatos, e splash
       de entrada da loja uma vez por sessão
 - [x] Componentes de visualização próprios, responsivos, com tabela acessível
 - [x] `netlify.toml` na raiz, com build reproduzido a partir do lockfile

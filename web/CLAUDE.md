@@ -61,6 +61,16 @@ aí o ResizeObserver lê a largura já inflada e nunca se corrige. Ponha também
 Não confie no build nem em uma largura só: verifique em 360, 390 e 1280, e
 compare `document.documentElement.scrollWidth` com `clientWidth`.
 
+**Medir rolagem não basta.** Conteúdo dentro de um ancestral com
+`overflow: hidden` — como o `<article>` do card de produto — é **recortado em
+silêncio**: o botão some pela metade e a página não rola, então o teste passa.
+Verifique também se algum elemento ultrapassa o retângulo do ancestral que faz o
+clipping. Foi assim que "Comprar" virou "Compra" no celular sem ninguém notar.
+
+No card de produto o espaço é apertado de verdade: no grid de 2 colunas a 390px
+sobram ~143px úteis. Botão vai empilhado, rótulo de status vai na versão curta
+(`rotuloEstoqueCurto`) e com `whitespace-normal` como rede de segurança.
+
 ## Visualização de dados
 
 Regras aplicadas em `src/components/viz/` (método da skill `dataviz`):
@@ -100,7 +110,7 @@ Nada de texto solto tipo "Carregando…". Use `<TelaCarregando>` (tela cheia, pa
 guarda de rota) ou `<BlocoCarregando>` (dentro da página), ambos em
 `components/CarregandoMarca.tsx` — símbolo da marca com anel laranja girando.
 
-A duração é **4 segundos exatos**, via `useLoaderComTeto` — mínimo e teto ao
+A duração é **3 segundos exatos**, via `useLoaderComTeto` — mínimo e teto ao
 mesmo tempo:
 
 - **Mínimo**, porque a hidratação termina em ~150ms. Sem ele o spinner piscava
@@ -108,7 +118,7 @@ mesmo tempo:
 - **Teto**, porque uma tela girando para sempre não informa nada e parece
   travamento. Estourado o prazo, entra uma mensagem estática no lugar.
 
-`<SplashEntrada>` é a tela de marca ao abrir o site: 4s, **uma vez por sessão**
+`<SplashEntrada>` é a tela de marca ao abrir o site: 3s, **uma vez por sessão**
 (marcação em `sessionStorage`). Ela nasce visível já na renderização do
 servidor — se aparecesse só depois de montar, o visitante veria a home por um
 instante e a splash cairia por cima, pior do que não ter.

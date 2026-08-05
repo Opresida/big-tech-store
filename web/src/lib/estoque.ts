@@ -44,6 +44,19 @@ export function rotuloEstoque(produto: Produto) {
   return `Em estoque · ${produto.estoque} un.`;
 }
 
+/**
+ * Versão curta, para o card da vitrine: no grid de 2 colunas do celular sobram
+ * ~128px úteis, e o rótulo completo era recortado pela borda do card.
+ * Mantém a palavra de status — cor sozinha não comunica.
+ */
+export function rotuloEstoqueCurto(produto: Produto) {
+  const nivel = nivelEstoque(produto);
+  if (nivel === "esgotado") return "Esgotado";
+  if (nivel === "critico") return `Crítico · ${produto.estoque} un.`;
+  if (nivel === "baixo") return `Baixo · ${produto.estoque} un.`;
+  return "Em estoque";
+}
+
 export const ROTULO_NIVEL: Record<NivelEstoque, string> = {
   ok: "Saudável",
   baixo: "Baixo",

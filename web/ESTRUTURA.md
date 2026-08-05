@@ -73,7 +73,7 @@ só a camada de acesso muda.
 | `Estoque.tsx` | `<BadgeEstoque>` e `<BarraEstoque>`, ambos derivados de `nivelEstoque()` |
 | `Estrelas.tsx` | Nota em estrelas com contagem e texto para leitor de tela |
 | `CardProduto.tsx` | Card da vitrine: selos, preço, status de estoque, adicionar/comprar |
-| `CarregandoMarca.tsx` | `<SplashEntrada>` (4s, 1x por sessão), `<TelaCarregando>`, `<BlocoCarregando>`, `<SpinnerMarca>` e o hook `useLoaderComTeto` |
+| `CarregandoMarca.tsx` | `<SplashEntrada>` (3s, 1x por sessão), `<TelaCarregando>`, `<BlocoCarregando>`, `<SpinnerMarca>` e o hook `useLoaderComTeto` |
 
 ### `components/loja` — vitrine
 

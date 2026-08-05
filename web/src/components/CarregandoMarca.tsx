@@ -4,15 +4,15 @@ import { useEffect, useState } from "react";
 import { Simbolo } from "./Marca";
 
 /**
- * Duração do loader: 4 segundos, conforme pedido.
+ * Duração do loader: 3 segundos.
  *
- * É mínimo E teto ao mesmo tempo — a tela de marca fica exatamente 4s.
+ * É mínimo E teto ao mesmo tempo — a tela de marca fica exatamente 3s.
  * O mínimo existe porque a hidratação termina em ~150ms: sem ele o spinner
  * piscava e sumia antes de o olho registrar, parecendo que não tinha entrado.
  * O teto existe para a tela nunca ficar girando para sempre se algo travar.
  */
-const TETO_MS = 4000;
-const MINIMO_MS = 4000;
+const TETO_MS = 3000;
+const MINIMO_MS = 3000;
 
 /**
  * Retorna `true` enquanto vale mostrar o loader: enquanto estiver carregando
