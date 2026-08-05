@@ -36,6 +36,7 @@ frente.
 - [x] Design system do brandbook em tokens
 - [x] Responsivo, verificado em 1280px e 390px
 - [x] Componentes de visualização próprios, responsivos, com tabela acessível
+- [x] `netlify.toml` na raiz, com build reproduzido a partir do lockfile
 
 ---
 
@@ -113,6 +114,10 @@ Ordem sugerida.
 - [ ] Lighthouse: medir LCP e CLS com fontes reais
 - [ ] SEO: `generateMetadata` por produto, JSON-LD de `Product` e `Offer`,
       sitemap
+- [ ] **CSP** — ficou de fora do `netlify.toml` de propósito: o Next.js injeta
+      script inline e uma política no chute quebraria a hidratação. Fazer com
+      nonce no middleware, junto com o back-end
+- [ ] Domínio próprio na Netlify (hoje sai no subdomínio `*.netlify.app`)
 - [ ] Tratar cota estourada do `localStorage` (hoje falha em silêncio)
 - [ ] Paginar a lista de pedidos no admin antes que o histórico cresça
 

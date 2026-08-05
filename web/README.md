@@ -23,6 +23,23 @@ npx eslint src               # lint
 npx tsc --noEmit             # typecheck
 ```
 
+## Deploy (Netlify)
+
+A configuração está em `netlify.toml`, **na raiz do repositório** — não aqui
+dentro. É de lá que a Netlify lê, e o `base = "web"` é justamente o que aponta
+para esta pasta.
+
+Para publicar: em *Add new site → Import an existing project*, conecte
+`Opresida/big-tech-store` e mande salvar. Não preencha build command nem publish
+directory na interface — o `netlify.toml` já define os dois, e valor digitado na
+UI tem precedência sobre o arquivo, o que só serviria para criar divergência.
+
+Não há variável de ambiente a configurar: sem back-end, não há segredo.
+
+O app roda com o Next.js Runtime v5 (`@netlify/plugin-nextjs`), que a Netlify
+instala sozinha. As três rotas dinâmicas (`/produtos/:slug`, `/checkout/:slug`,
+`/pedido/:id`) são renderizadas sob demanda; o resto é pré-renderizado estático.
+
 ## Acesso ao painel administrativo
 
 | Campo | Valor |

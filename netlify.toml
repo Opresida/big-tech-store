@@ -1,0 +1,57 @@
+# Netlify — BIG TECH STORE
+#
+# A aplicação Next.js vive em `web/`, não na raiz do repositório.
+# ATENÇÃO: dentro do netlify.toml, todo caminho é relativo ao `base`.
+# Por isso `publish = ".next"` e não `web/.next`.
+
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # O projeto foi desenvolvido e verificado no Node 22.
+  # O runtime do Next.js exige Node 18 ou superior.
+  NODE_VERSION = "22"
+  # Como existe package-lock.json versionado, a Netlify usa `npm ci` — ou seja,
+  # instalação determinística e falha se o lock estiver fora de sincronia com o
+  # package.json. Não é preciso configurar nada para isso.
+
+# Runtime oficial do Next.js (v5). É ele que faz funcionar o App Router,
+# as rotas dinâmicas server-rendered (/produtos/:slug, /checkout/:slug,
+# /pedido/:id), o cache e o next/image via Netlify Image CDN.
+# A Netlify instala este plugin sozinha ao detectar Next.js, mas declarar
+# aqui trava a escolha e deixa explícito para quem for ler o repositório.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# ---------------------------------------------------------------------------
+# Cabeçalhos de segurança
+#
+# Não há CSP aqui de propósito: o Next.js injeta scripts inline e uma política
+# escrita no chute quebraria a hidratação em produção. CSP deve entrar junto
+# com o back-end, usando nonce gerado no middleware.
+# ---------------------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+# O painel administrativo não deve ser indexado por buscador.
+# É proteção de privacidade, não de segurança — a guarda real de acesso
+# entra com a autenticação de servidor na próxima etapa.
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+# Deploy previews e branches: mesmo build da produção.
+[context.deploy-preview]
+  command = "npm run build"
+
+[context.branch-deploy]
+  command = "npm run build"
