@@ -213,6 +213,42 @@
     border-radius: 12px;
   }
 
+  /* Loader da marca */
+  @keyframes girar {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes pulsar {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.82;
+      transform: scale(0.94);
+    }
+  }
+  @keyframes surgir {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .girando {
+    animation: girar 1.1s linear infinite;
+    transform-origin: 50% 50%;
+  }
+  .pulsando {
+    animation: pulsar 1.6s ease-in-out infinite;
+  }
+  .surgindo {
+    animation: surgir 0.25s ease-out both;
+  }
+
   /* Placeholder de foto de produto — Brandbook 06 */
   .hachura {
     background: repeating-linear-gradient(

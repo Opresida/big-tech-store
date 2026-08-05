@@ -25,6 +25,7 @@ import {
   parcela,
   precoPix,
 } from "@/lib/formato";
+import { BlocoCarregando } from "@/components/CarregandoMarca";
 import { useLoja } from "@/lib/loja";
 import { agora, noPeriodo } from "@/lib/metricas";
 
@@ -59,7 +60,7 @@ export default function CheckoutProduto() {
   );
 
   if (!produto) {
-    if (!hidratado) return null;
+    if (!hidratado) return <BlocoCarregando mensagem="Preparando sua compra" />;
     notFound();
   }
 

@@ -44,7 +44,7 @@ export function GraficoLinha({
 
   const ticks = Array.from({ length: escalaMax / passo + 1 }, (_, i) => i * passo);
   // Em telas estreitas, só uma fração dos rótulos do eixo X cabe.
-  const espacoPorRotulo = 46;
+  const espacoPorRotulo = 52;
   const salto = Math.max(1, Math.ceil((dados.length * espacoPorRotulo) / larguraPlot));
 
   function aoMover(e: React.MouseEvent<SVGSVGElement>) {
@@ -58,7 +58,9 @@ export function GraficoLinha({
   const ultimo = dados.length - 1;
 
   return (
-    <div ref={ref} className="relative w-full">
+    // overflow-hidden é a trava de segurança: mesmo no primeiro quadro, antes
+    // do ResizeObserver medir, o SVG jamais empurra a largura da página.
+    <div ref={ref} className="relative w-full overflow-hidden">
       <svg
         width={largura}
         height={altura}
@@ -114,9 +116,12 @@ export function GraficoLinha({
         />
 
         {/* Rótulos do eixo X — o último sempre aparece; um rótulo periódico
-            perto demais dele é suprimido para não colidir. */}
+            é suprimido quando está a menos de uma largura de rótulo dele.
+            A comparação é em pixels, não em índices: no celular a distância
+            entre dois índices encolhe e a colisão voltava. */}
         {dados.map((d, i) =>
-          i === ultimo || (i % salto === 0 && ultimo - i >= salto * 0.7) ? (
+          i === ultimo ||
+          (i % salto === 0 && x(ultimo) - x(i) >= espacoPorRotulo) ? (
             <text
               key={i}
               x={x(i)}

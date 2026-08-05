@@ -19,6 +19,7 @@ import { CATEGORIAS } from "@/lib/catalogo";
 import { depoimentosDe } from "@/lib/depoimentos";
 import { nivelEstoque } from "@/lib/estoque";
 import { descontoPercentual } from "@/lib/formato";
+import { BlocoCarregando } from "@/components/CarregandoMarca";
 import { useLoja } from "@/lib/loja";
 import { agora, noPeriodo } from "@/lib/metricas";
 
@@ -59,7 +60,7 @@ export default function PaginaProduto() {
   // Antes da hidratação o depósito é a semente, então o slug sempre resolve;
   // se mesmo assim não existir, é rota inválida.
   if (!produto) {
-    if (!hidratado) return null;
+    if (!hidratado) return <BlocoCarregando mensagem="Carregando o produto" />;
     notFound();
   }
 

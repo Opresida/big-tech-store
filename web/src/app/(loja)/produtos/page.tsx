@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
 import { CardProduto } from "@/components/CardProduto";
+import { BlocoCarregando } from "@/components/CarregandoMarca";
 import { CATEGORIAS } from "@/lib/catalogo";
 import { descontoPercentual } from "@/lib/formato";
 import { useLoja } from "@/lib/loja";
@@ -353,13 +354,7 @@ function Caixa({
 
 export default function PaginaProdutos() {
   return (
-    <Suspense
-      fallback={
-        <div className="mx-auto max-w-[1280px] px-4 py-16 text-cinza-500 lg:px-8">
-          Carregando catálogo…
-        </div>
-      }
-    >
+    <Suspense fallback={<BlocoCarregando mensagem="Montando o catálogo" />}>
       <Catalogo />
     </Suspense>
   );

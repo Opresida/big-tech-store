@@ -44,9 +44,22 @@ solto no JSX. Padrões repetidos (botão, campo, badge, cartão) são classes em
 ## Responsividade
 
 Mobile-first, sempre. Todo componente novo precisa passar em 390px sem scroll
-horizontal. Cuidado com item de grid/flex que contém texto `truncate`: o padrão
-`min-width: auto` estoura o container — some `min-w-0` no item. Tabela larga vai
-dentro de `overflow-x-auto` própria, nunca deixando a página rolar de lado.
+horizontal. Tabela larga vai dentro de `overflow-x-auto` própria, nunca deixando
+a página rolar de lado.
+
+**`min-width: auto` é a armadilha que já quebrou este projeto duas vezes.** Item
+de grid ou de flex não encolhe abaixo do conteúdo por padrão. Se ele contém
+texto `truncate`, tabela com `min-width` ou SVG medido em px, o filho estica a
+coluna e a página inteira sai da tela no celular. Ponha `min-w-0` no item — é
+por isso que `<Cartao>` e as colunas dos grids já têm.
+
+Corolário para quem mede largura em px (`useLargura`): **comece estreito e
+cresça**. Um valor inicial largo estica o container antes da primeira medição, e
+aí o ResizeObserver lê a largura já inflada e nunca se corrige. Ponha também
+`overflow-hidden` no wrapper como trava.
+
+Não confie no build nem em uma largura só: verifique em 360, 390 e 1280, e
+compare `document.documentElement.scrollWidth` com `clientWidth`.
 
 ## Visualização de dados
 
@@ -80,6 +93,16 @@ Regras de hidratação, porque o SSR está ligado:
   `semente.ts`, data-âncora `HOJE` em `catalogo.ts`).
 - Use a flag `hidratado` para segurar o que depende de `localStorage` (badge do
   carrinho, guarda do admin).
+
+## Estados de carregamento
+
+Nada de texto solto tipo "Carregando…". Use `<TelaCarregando>` (tela cheia, para
+guarda de rota) ou `<BlocoCarregando>` (dentro da página), ambos em
+`components/CarregandoMarca.tsx` — símbolo da marca com anel laranja girando.
+
+Todo loader tem **teto de 4 segundos**, via `useLoaderComTeto`. Passado o teto
+ele some e dá lugar a uma mensagem estática: uma tela girando para sempre não
+informa nada e parece travamento.
 
 ## Acessibilidade
 

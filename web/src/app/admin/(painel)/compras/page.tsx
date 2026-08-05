@@ -92,7 +92,7 @@ export default function PaginaCompras() {
         descricao="Controla tudo que entra no estoque. A mercadoria só é somada quando a ordem é marcada como recebida."
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <Kpi
           rotulo="Ordens em aberto"
           valor={numero(abertas.length)}

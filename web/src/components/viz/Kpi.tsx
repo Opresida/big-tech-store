@@ -37,9 +37,14 @@ export function Kpi({
         : variacaoPercentual >= 0;
 
   return (
-    <div className={`flex flex-col gap-2 rounded-xl border bg-white p-4 ${cores}`}>
+    // No celular os tiles ficam 2 por linha: padding e corpo menores para o
+    // valor caber sem quebrar. `break-words` é a rede de segurança para um
+    // número maior que o previsto.
+    <div
+      className={`flex min-w-0 flex-col gap-2 rounded-xl border bg-white p-3 sm:p-4 ${cores}`}
+    >
       <span className="t-label text-[10px] text-cinza-500">{rotulo}</span>
-      <span className="text-[26px] font-extrabold leading-none text-noite sm:text-[30px]">
+      <span className="break-words text-[18px] font-extrabold leading-none text-noite sm:text-[26px] lg:text-[30px]">
         {valor}
       </span>
       <div className="flex flex-wrap items-center gap-2">

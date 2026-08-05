@@ -5,6 +5,7 @@ import { FotoProduto } from "@/components/FotoProduto";
 import { FormularioCheckout } from "@/components/loja/FormularioCheckout";
 import { SelosConfianca } from "@/components/loja/Gatilhos";
 import { moeda } from "@/lib/formato";
+import { BlocoCarregando } from "@/components/CarregandoMarca";
 import { useLoja } from "@/lib/loja";
 
 export default function PaginaCheckout() {
@@ -28,9 +29,7 @@ export default function PaginaCheckout() {
 
   if (!hidratado) {
     return (
-      <div className="mx-auto max-w-[1280px] px-4 py-16 text-cinza-500 lg:px-8">
-        Carregando checkout…
-      </div>
+      <BlocoCarregando mensagem="Preparando o checkout" />
     );
   }
 

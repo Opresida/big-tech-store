@@ -17,8 +17,15 @@ export const GRADE = "#E3E7EF";
 export const EIXO = "#7A839A";
 export const TINTA = "#08133A";
 
-/** Largura real do container — é o que torna o SVG responsivo de verdade. */
-export function useLargura<T extends HTMLElement>(inicial = 640) {
+/**
+ * Largura real do container — é o que torna o SVG responsivo de verdade.
+ *
+ * O valor inicial é propositalmente pequeno: quem mede em px precisa começar
+ * estreito e crescer. Começar largo (640) fazia o SVG esticar a coluna do grid
+ * antes da primeira medição, e o ResizeObserver então lia a largura já
+ * inflada — a página inteira nascia torta no celular e nunca se corrigia.
+ */
+export function useLargura<T extends HTMLElement>(inicial = 280) {
   const ref = useRef<T>(null);
   const [largura, setLargura] = useState(inicial);
 
@@ -140,9 +147,14 @@ export function Cartao({
   className?: string;
 }) {
   return (
-    <section className={`cartao flex flex-col gap-4 p-4 sm:p-5 ${className}`}>
-      <header className="flex flex-wrap items-start justify-between gap-3">
-        <div className="flex flex-col gap-1">
+    // min-w-0: como item de grid/flex, o padrão `min-width:auto` deixaria um
+    // filho largo (SVG medido em px, tabela com min-width) esticar a coluna
+    // inteira e estourar a página no celular.
+    <section
+      className={`cartao flex min-w-0 flex-col gap-4 p-4 sm:p-5 ${className}`}
+    >
+      <header className="flex min-w-0 flex-wrap items-start justify-between gap-3">
+        <div className="flex min-w-0 flex-col gap-1">
           <h2 className="text-[15px] font-bold text-noite">{titulo}</h2>
           {descricao && (
             <p className="text-[12px] leading-[1.45] text-cinza-500">

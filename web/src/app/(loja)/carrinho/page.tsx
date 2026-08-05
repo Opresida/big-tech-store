@@ -5,6 +5,7 @@ import { FotoProduto } from "@/components/FotoProduto";
 import { BadgeEstoque } from "@/components/Estoque";
 import { SelosConfianca } from "@/components/loja/Gatilhos";
 import { DESCONTO_PIX, moeda, parcela, PARCELAS_MAX, precoPix } from "@/lib/formato";
+import { BlocoCarregando } from "@/components/CarregandoMarca";
 import { useLoja } from "@/lib/loja";
 
 export default function PaginaCarrinho() {
@@ -36,9 +37,7 @@ export default function PaginaCarrinho() {
 
   if (!hidratado) {
     return (
-      <div className="mx-auto max-w-[1280px] px-4 py-16 text-cinza-500 lg:px-8">
-        Carregando carrinho…
-      </div>
+      <BlocoCarregando mensagem="Carregando seu carrinho" />
     );
   }
 

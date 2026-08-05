@@ -61,8 +61,11 @@ export function GraficoColunas({
       </div>
 
       <div className="-mx-1 overflow-x-auto px-1 pb-1">
+        {/* min-width baixo de propósito: com poucos períodos, todos precisam
+            caber na tela do celular — inclusive o mês corrente, que é o que
+            mais interessa. Só rola de lado quando a série é longa. */}
         <div
-          className="flex min-w-[420px] items-end gap-2"
+          className="flex min-w-[260px] items-end gap-2"
           style={{ height: altura }}
           onMouseLeave={() => setAtivo(null)}
         >

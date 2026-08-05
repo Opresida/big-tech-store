@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { dataHora, moeda } from "@/lib/formato";
+import { BlocoCarregando } from "@/components/CarregandoMarca";
 import { useLoja } from "@/lib/loja";
 
 const ROTULO_PAGAMENTO = {
@@ -19,9 +20,7 @@ export default function PaginaPedido() {
 
   if (!hidratado) {
     return (
-      <div className="mx-auto max-w-[1280px] px-4 py-16 text-cinza-500 lg:px-8">
-        Carregando pedido…
-      </div>
+      <BlocoCarregando mensagem="Buscando seu pedido" />
     );
   }
 

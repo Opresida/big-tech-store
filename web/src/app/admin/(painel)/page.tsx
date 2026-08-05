@@ -55,7 +55,7 @@ export default function VisaoGeral() {
         descricao="Últimos 30 dias, comparados com os 30 anteriores. Os números vêm dos mesmos pedidos que a loja gera."
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
         <Kpi
           rotulo="Receita 30 dias"
           valor={moeda(r.receita)}
