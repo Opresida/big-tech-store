@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paleta — Brandbook 03 */
+  --color-azul: #0b37d6;
+  --color-azul-escuro: #0930b8;
+  --color-azul-claro: #edf1fe;
+  --color-laranja: #ff6a00;
+  --color-laranja-escuro: #e85f00;
+  --color-laranja-claro: #fff4ec;
+  --color-noite: #08133a;
+  --color-amarelo: #ffc400;
+  --color-verde: #16a34a;
+  --color-verde-texto: #0f7a38;
+  --color-verde-claro: #f0fdf4;
+  --color-verde-borda: #bbf0ce;
+  --color-ambar: #b45309;
+  --color-ambar-claro: #fff7ed;
+  --color-ambar-borda: #fcd9a8;
+  --color-vermelho: #e11d48;
+  --color-vermelho-texto: #b3123a;
+  --color-vermelho-claro: #fff1f3;
+  --color-vermelho-borda: #fbc7d2;
+
+  --color-cinza-50: #f4f6fb;
+  --color-cinza-100: #edeff4;
+  --color-cinza-200: #e3e7ef;
+  --color-cinza-300: #d5dce9;
+  --color-cinza-400: #9aa3b7;
+  --color-cinza-500: #7a839a;
+  --color-cinza-600: #5a6479;
+
+  /* Tipografia — Brandbook 04 */
+  --font-display: var(--font-archivo-black), sans-serif;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  body {
+    background: #fff;
+    color: var(--color-noite);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Escala tipográfica — Brandbook 04 */
+  .t-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    line-height: 0.9;
+  }
+  .t-label {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+}
+
+@layer components {
+  /* UI System — Brandbook 06: botões altura 48, raio 10 */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 26px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      background 0.15s ease,
+      transform 0.15s ease,
+      box-shadow 0.15s ease,
+      color 0.15s ease;
+  }
+  .btn:disabled {
+    background: var(--color-cinza-200);
+    color: var(--color-cinza-400);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    border-color: transparent;
+  }
+  /* CTA laranja — um por bloco visível */
+  .btn-cta {
+    background: var(--color-laranja);
+    color: #fff;
+    box-shadow: 0 6px 16px rgb(255 106 0 / 0.35);
+  }
+  .btn-cta:hover:not(:disabled) {
+    background: var(--color-laranja-escuro);
+    transform: translateY(-1px);
+  }
+  .btn-primary {
+    background: var(--color-azul);
+    color: #fff;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-azul-escuro);
+  }
+  .btn-outline {
+    border: 2px solid var(--color-azul);
+    color: var(--color-azul);
+    background: transparent;
+  }
+  .btn-outline:hover:not(:disabled) {
+    background: var(--color-azul-claro);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-cinza-600);
+    font-weight: 600;
+    padding: 0 20px;
+  }
+  .btn-ghost:hover:not(:disabled) {
+    color: var(--color-noite);
+  }
+  .btn-sm {
+    height: 38px;
+    padding: 0 16px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+
+  /* Formulário — Brandbook 06 */
+  .campo {
+    height: 48px;
+    width: 100%;
+    padding: 0 14px;
+    border: 1.5px solid var(--color-cinza-300);
+    border-radius: 10px;
+    background: #fff;
+    font-size: 15px;
+    color: var(--color-noite);
+    outline: none;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  .campo::placeholder {
+    color: var(--color-cinza-400);
+  }
+  .campo:focus {
+    border-color: var(--color-azul);
+    box-shadow: 0 0 0 3px rgb(11 55 214 / 0.14);
+  }
+  .campo-erro {
+    border-color: var(--color-vermelho);
+  }
+  .campo-erro:focus {
+    box-shadow: 0 0 0 3px rgb(225 29 72 / 0.14);
+  }
+  .rotulo {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-cinza-600);
+  }
+
+  /* Badges e status de estoque — Brandbook 06 */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .badge-oferta {
+    background: var(--color-amarelo);
+    color: var(--color-noite);
+    font-weight: 800;
+  }
+  .badge-lancamento {
+    background: var(--color-azul);
+    color: #fff;
+  }
+  .badge-frete {
+    background: var(--color-noite);
+    color: var(--color-amarelo);
+  }
+  .badge-ok {
+    background: var(--color-verde-claro);
+    color: var(--color-verde-texto);
+    border: 1px solid var(--color-verde-borda);
+  }
+  .badge-baixo {
+    background: var(--color-ambar-claro);
+    color: var(--color-ambar);
+    border: 1px solid var(--color-ambar-borda);
+  }
+  .badge-esgotado {
+    background: var(--color-vermelho-claro);
+    color: var(--color-vermelho-texto);
+    border: 1px solid var(--color-vermelho-borda);
+  }
+
+  .cartao {
+    background: #fff;
+    border: 1px solid var(--color-cinza-200);
+    border-radius: 12px;
+  }
+
+  /* Placeholder de foto de produto — Brandbook 06 */
+  .hachura {
+    background: repeating-linear-gradient(
+      45deg,
+      #f7f9fc 0 8px,
+      #eef2f8 8px 16px
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
