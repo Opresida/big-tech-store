@@ -4,25 +4,38 @@ import { useEffect, useState } from "react";
 import { Simbolo } from "./Marca";
 
 /**
- * Teto de exibição do loader. O carregamento real leva poucos centenas de
- * milissegundos; estes 4 segundos são a válvula de segurança para que a tela
- * nunca fique girando para sempre se algo travar.
+ * Duração do loader: 4 segundos, conforme pedido.
+ *
+ * É mínimo E teto ao mesmo tempo — a tela de marca fica exatamente 4s.
+ * O mínimo existe porque a hidratação termina em ~150ms: sem ele o spinner
+ * piscava e sumia antes de o olho registrar, parecendo que não tinha entrado.
+ * O teto existe para a tela nunca ficar girando para sempre se algo travar.
  */
 const TETO_MS = 4000;
+const MINIMO_MS = 4000;
 
 /**
  * Retorna `true` enquanto vale mostrar o loader: enquanto estiver carregando
- * E o teto de 4s não tiver estourado.
+ * OU o tempo mínimo não tiver passado — e sempre respeitando o teto.
  */
-export function useLoaderComTeto(carregando: boolean, tetoMs = TETO_MS) {
+export function useLoaderComTeto(
+  carregando: boolean,
+  { minimoMs = MINIMO_MS, tetoMs = TETO_MS }: { minimoMs?: number; tetoMs?: number } = {},
+) {
+  const [cumpriuMinimo, setCumpriuMinimo] = useState(minimoMs <= 0);
   const [estourou, setEstourou] = useState(false);
 
   useEffect(() => {
-    const id = setTimeout(() => setEstourou(true), tetoMs);
-    return () => clearTimeout(id);
-  }, [tetoMs]);
+    const t1 = setTimeout(() => setCumpriuMinimo(true), minimoMs);
+    const t2 = setTimeout(() => setEstourou(true), tetoMs);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [minimoMs, tetoMs]);
 
-  return carregando && !estourou;
+  if (estourou) return false;
+  return carregando || !cumpriuMinimo;
 }
 
 /** Anel girando em torno do símbolo da marca. */
@@ -118,6 +131,45 @@ export function TelaCarregando({
       </div>
     </div>
   );
+}
+
+const CHAVE_SPLASH = "bts.splash.v1";
+
+/**
+ * Tela de marca ao entrar no site: 4 segundos, uma vez por sessão do
+ * navegador.
+ *
+ * Começa visível já na renderização do servidor — de propósito. Se só
+ * aparecesse depois de montar, o visitante veria a home por um instante e
+ * *depois* a splash cairia por cima, que é pior do que não ter splash.
+ * Navegar entre páginas não repete: a marcação fica no sessionStorage.
+ */
+export function SplashEntrada() {
+  const [visivel, setVisivel] = useState(true);
+
+  useEffect(() => {
+    let javiu = false;
+    try {
+      javiu = window.sessionStorage.getItem(CHAVE_SPLASH) === "1";
+      window.sessionStorage.setItem(CHAVE_SPLASH, "1");
+    } catch {
+      // modo privado: mostra a splash, sem memória entre navegações
+    }
+
+    if (javiu) {
+      // Leitura de fonte externa (sessionStorage) na hidratação: mesma exceção
+      // documentada em lib/loja.tsx. Roda uma vez, sem cascata.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setVisivel(false);
+      return;
+    }
+
+    const id = setTimeout(() => setVisivel(false), TETO_MS);
+    return () => clearTimeout(id);
+  }, []);
+
+  if (!visivel) return null;
+  return <TelaCarregando mensagem="O melhor preço do Brasil" />;
 }
 
 /** Versão embutida, para quando só um bloco da página está carregando. */

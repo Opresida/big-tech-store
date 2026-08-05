@@ -22,15 +22,23 @@ export default function LayoutPainel({
     if (hidratado && !adminLogado) router.replace("/admin/login");
   }, [hidratado, adminLogado, router]);
 
+  // A ordem importa: o loader vem ANTES do teste de `aguardando`, senão ele
+  // sumiria assim que a hidratação terminasse — em ~150ms, rápido demais
+  // para ser visto.
+  if (mostrarLoader) {
+    return (
+      <TelaCarregando
+        mensagem={
+          hidratado && !adminLogado
+            ? "Redirecionando para o login"
+            : "Abrindo o painel"
+        }
+      />
+    );
+  }
+
   if (aguardando) {
-    if (mostrarLoader) {
-      return (
-        <TelaCarregando
-          mensagem={hidratado ? "Redirecionando para o login" : "Abrindo o painel"}
-        />
-      );
-    }
-    // Passou o teto: mensagem estática, sem nada girando na tela.
+    // Passou o teto de 4s: mensagem estática, sem nada girando na tela.
     return (
       <div className="grid min-h-screen place-items-center bg-cinza-50 px-6">
         <p className="text-center text-[14px] text-cinza-500">

@@ -73,7 +73,7 @@ só a camada de acesso muda.
 | `Estoque.tsx` | `<BadgeEstoque>` e `<BarraEstoque>`, ambos derivados de `nivelEstoque()` |
 | `Estrelas.tsx` | Nota em estrelas com contagem e texto para leitor de tela |
 | `CardProduto.tsx` | Card da vitrine: selos, preço, status de estoque, adicionar/comprar |
-| `CarregandoMarca.tsx` | `<TelaCarregando>`, `<BlocoCarregando>`, `<SpinnerMarca>` e o hook `useLoaderComTeto` (teto de 4s) |
+| `CarregandoMarca.tsx` | `<SplashEntrada>` (4s, 1x por sessão), `<TelaCarregando>`, `<BlocoCarregando>`, `<SpinnerMarca>` e o hook `useLoaderComTeto` |
 
 ### `components/loja` — vitrine
 
@@ -136,6 +136,7 @@ app/  ──►  components/  ──►  lib/
 |---|---|---|
 | `bts.loja.v1` | `localStorage` | Depósito (produtos, pedidos, compras) + carrinho |
 | `bts.admin.v1` | `sessionStorage` | Sessão do admin (`"1"` quando logado) |
+| `bts.splash.v1` | `sessionStorage` | Marca que a splash de entrada já rodou nesta sessão |
 
 Mudou o formato dos dados? Suba a versão da chave para não quebrar quem já tem
 estado salvo no navegador.

@@ -100,9 +100,18 @@ Nada de texto solto tipo "Carregando…". Use `<TelaCarregando>` (tela cheia, pa
 guarda de rota) ou `<BlocoCarregando>` (dentro da página), ambos em
 `components/CarregandoMarca.tsx` — símbolo da marca com anel laranja girando.
 
-Todo loader tem **teto de 4 segundos**, via `useLoaderComTeto`. Passado o teto
-ele some e dá lugar a uma mensagem estática: uma tela girando para sempre não
-informa nada e parece travamento.
+A duração é **4 segundos exatos**, via `useLoaderComTeto` — mínimo e teto ao
+mesmo tempo:
+
+- **Mínimo**, porque a hidratação termina em ~150ms. Sem ele o spinner piscava
+  e sumia antes de o olho registrar, e parecia que não tinha entrado.
+- **Teto**, porque uma tela girando para sempre não informa nada e parece
+  travamento. Estourado o prazo, entra uma mensagem estática no lugar.
+
+`<SplashEntrada>` é a tela de marca ao abrir o site: 4s, **uma vez por sessão**
+(marcação em `sessionStorage`). Ela nasce visível já na renderização do
+servidor — se aparecesse só depois de montar, o visitante veria a home por um
+instante e a splash cairia por cima, pior do que não ter.
 
 ## Acessibilidade
 
