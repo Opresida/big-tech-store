@@ -1,0 +1,16 @@
+{
+  "name": "big-tech-store-db",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Banco de dados da BIG TECH STORE — migrations, funções de gestão e seed.",
+  "scripts": {
+    "seed:gerar": "tsx seed/gerar-seed.ts",
+    "paridade": "tsx testes/paridade.ts"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.20.4",
+    "pg": "^8.22.0",
+    "tsx": "^4.19.2"
+  }
+}
