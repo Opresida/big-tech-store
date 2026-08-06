@@ -153,5 +153,6 @@ reiniciam à meia-noite. A prova social sai do histórico de pedidos.
 - Detalhes do que falta em `TODO.md`.
 
 Documentação complementar: `CLAUDE.md` (convenções para agentes),
+`PROMPT-BANCO-DE-DADOS.md` (especificação do banco para a próxima etapa),
 `ESTRUTURA.md` (mapa de arquivos), `CONTEXT.md` (decisões e porquês),
 `TODO.md` (próximos passos).
